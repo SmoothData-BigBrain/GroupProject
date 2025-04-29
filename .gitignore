@@ -2,7 +2,8 @@
 .DS_Store
 
 # ignore the data folder 
-/data
+data/airlines/**/*.csv
+data/archive/
 anaconda_projects/
 
 # Byte-compiled / optimized / DLL files

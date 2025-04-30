@@ -2,7 +2,8 @@
 .DS_Store
 
 # ignore the data folder 
-data/airlines/**/*.csv
+data/airlines/*.zip
+data/airlines/archive
 data/archive/
 anaconda_projects/
 

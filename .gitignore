@@ -3,8 +3,8 @@
 
 # ignore the data folder 
 data/airlines/*.zip
-data/airlines/archive
-data/archive/
+data/airlines/archive/*.csv
+data/archive/*.csv
 anaconda_projects/
 
 # Byte-compiled / optimized / DLL files

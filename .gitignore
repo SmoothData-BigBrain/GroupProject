@@ -2,10 +2,11 @@
 .DS_Store
 
 # ignore the data folder 
-data/airlines/*.zip
-data/airlines/archive/*.csv
-data/archive/*.csv
+**/*.csv
+**/*.zip
+**/.ipynb_checkpoints/
 anaconda_projects/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

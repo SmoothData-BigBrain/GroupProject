@@ -2,7 +2,7 @@
 .DS_Store
 
 # ignore the data folder 
-**/*.csv
+data/**/*.csv
 **/*.zip
 **/.ipynb_checkpoints/
 anaconda_projects/

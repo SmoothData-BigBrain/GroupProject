@@ -3,6 +3,7 @@
 
 # ignore the data folder 
 data/**/*.csv
+data/archive/raw/
 **/*.zip
 **/.ipynb_checkpoints/
 anaconda_projects/

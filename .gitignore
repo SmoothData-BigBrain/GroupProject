@@ -2,11 +2,16 @@
 .DS_Store
 
 # ignore the data folder 
+**/*.bk
 data/**/*.csv
 data/archive/raw/
+**/*.parquet
 **/*.zip
 **/.ipynb_checkpoints/
 anaconda_projects/
+notebooks/full_summary_df/
+notebooks/combined_file/
+notebooks/filtered_df_temp/
 
 
 # Byte-compiled / optimized / DLL files

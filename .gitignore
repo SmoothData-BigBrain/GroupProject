@@ -13,6 +13,8 @@ notebooks/full_summary_df/
 notebooks/combined_files/
 notebooks/filtered_df_temp/
 **/__MACOSX
+.virtual_documents/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

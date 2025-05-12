@@ -45,8 +45,8 @@ def check_and_fetch_data(file_id, data_dir):
     csv_files = [f for f in os.listdir(data_dir+'archive/raw/') if f.endswith('.csv')]
 
     if not csv_files:
-        print(f"No CSV files found in {data_dir}. Fetching data...")
+        print(f"No CSV files found in {data_dir+'archive/raw/'}. Fetching data...")
         # Fetch the data if no CSV files are present
         fetch_data(file_id, download_path, data_dir)
     else:
-        print(f"CSV files already exist in {data_dir}. Skipping data download.")
+        print(f"CSV files already exist in {data_dir+'archive/raw/'}. Skipping data download.")

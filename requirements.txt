@@ -1,4 +1,7 @@
-pyspark
-seaborn
-gdown
-plotly
+gdown==5.2.0
+pandas==2.2.3
+seaborn==0.13.2
+plotly==6.1.1
+pyspark==3.5.5
+matplotlib==3.9.4
+numpy==1.26.4

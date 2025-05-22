@@ -1,3 +1,4 @@
 pyspark
 seaborn
 gdown
+plotly

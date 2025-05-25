@@ -1,4 +1,4 @@
-# Data Preprocessing
+# Data Preprocessing - Milestone 2
 
 Before conducting any in-depth analysis or modeling, it's essential to preprocess the data to ensure consistency, reliability, and usability. Our preprocessing workflow involves the following steps:
 
@@ -44,3 +44,41 @@ As our objectives become more refined and our understanding of the data improves
 ## Jupyter Notebook
 
 The full preprocessing pipeline can be found in [GroupProject.ipynb](./GroupProject.ipynb).
+
+# Model Generation - Milestone 3
+
+## 1. PreProcessing Finalization
+
+- **Removal of Redundant Features:** columns deemed to have unnecessary information or information covered by other features were removed leaving 31 remaining features.
+- **Handling Missing Data:** to account for the vast majority of missing data, entries with cancelled flights were removed resulting in only 0.27% of observations having null values. These rows were subsequently removed.
+
+## 2. Feature Expansions
+
+- **Route Column:** this new feature combines information from 'Origin' and 'Dest' to make a route identifier.
+- **Speed Column:** this feature takes the ratio of 'AirTime' and 'Distance' to get the average speed during the flight.
+- **Route Visualization:** for visualization purposes, we created an interactive map of the U.S. that includes the top 1000 most popular routes.
+
+## 3. Model Creation
+
+- **Model Selection:** a RandomForest classifier was selected to be our first model
+- **String Indexing:** after preprocessing and feature expansion, there were 12 columns that needed to be converted from strings to doubles. Two of these new indices resulted in too many distinct categories and were therefore removed.
+- **Label Column Reduction:** initially, there were 16 label categories. We reduced this to 4 and balanced the category counts as best as possible,
+- **Dataset Split:** this dataset was split into smaller training, validation, and testing datasets (70/15/15 respectively).
+
+## 4. Model Evaluation
+
+- **Accuracy Scores:** the trained model was used to predict scores resulting in training and testing accuracies of around 42%
+- **Importance Scores:** we used the gini importance metric to see what impact our features had on the model
+
+## 5. Conclusion
+- Our initial model provides a solid baseline, but its moderate accuracy suggests potential underfitting or label noise.
+
+- Future work will include:
+
+  - Exploring other model types (e.g., XGBoost, Gradient Boosted Trees)
+
+  - Hyperparameter tuning
+
+  - Further refining the label categories and applying SMOTE or other balancing techniques
+ 
+**For our full code and detailed outputs, see our main notebook [GroupProject.ipynb](./GroupProject.ipynb).**

@@ -47,7 +47,7 @@ As our objectives become more refined and our understanding of the data improves
 
 ## Jupyter Notebook
 
-The full preprocessing pipeline can be found in [GroupProject.ipynb](./GroupProject.ipynb).
+The full preprocessing pipeline can be found in [GroupProject.ipynb](./notebooks/GroupProject.ipynb).
 
 # Model Generation - Milestone 3
 
@@ -85,4 +85,4 @@ The full preprocessing pipeline can be found in [GroupProject.ipynb](./GroupProj
 
   - Further refining the label categories and applying SMOTE or other balancing techniques
  
-**For our full code and detailed outputs, see our main notebook [GroupProject.ipynb](./GroupProject.ipynb).**
+**For our full code and detailed outputs, see our main notebook [GroupProject.ipynb](./notebooks/GroupProject.ipynb).**

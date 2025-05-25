@@ -1,3 +1,7 @@
+# Dataset
+
+**Our data set can be found here: [Flight Status Prediction](https://www.kaggle.com/datasets/robikscube/flight-delay-dataset-20182022)**
+
 # Data Preprocessing - Milestone 2
 
 Before conducting any in-depth analysis or modeling, it's essential to preprocess the data to ensure consistency, reliability, and usability. Our preprocessing workflow involves the following steps:

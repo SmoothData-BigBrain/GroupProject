@@ -1,5 +1,5 @@
 # GroupProject
-## Data Preprocessing
+## Milestone 2 - Data Preprocessing
 
 Before conducting any in-depth analysis or modeling, it's essential to preprocess the data to ensure consistency, reliability, and usability. Our preprocessing workflow involves the following steps:
 
@@ -31,3 +31,35 @@ The preprocessed dataset will be saved as `cleaned_data.csv` for further analysi
 
 See the full preprocessing pipeline in [Preprocessing\_Notebook.ipynb](./Preprocessing_Notebook.ipynb).
 
+## Milestone 3 - Initial Model Evaluation
+
+### 1. Pre-processing finalization
+
+* **Removal of redundant features**: mannually removed 31 features that were deemed unnecessary.
+* **Handling missng data**: by removing canclled flights, we eliminated all but 0.27% of data entries containing nulls. The remaining nulls are simply dropped.
+
+### 2. Feature expansion
+
+* **Route**: combination of origin and destination.
+* **Speed**: ratio of AirTime and Distance.
+* **Route visualization**: interactive maps of 1000 most common routes.
+
+### 3. StringIndexer
+
+* **Categorical to numerical**: changed all columns with string datatype to numerical datatype.
+* **Removal of more columns**: remove columns with too many distinct categories which is difficult for RandomForest to handle.
+
+### 4. Train First Model
+
+* **Label Reduction**: reduce the amount of labels from 16 to 4.
+* **Split**: train, test, and val split of the data (70/15/15).
+* **Model Creation**: RandomForest classifier with 800 bins, 5 trees, maxDepth = 3.
+
+
+### 5. Model Evalutaion
+
+* **Model Accuracy**: scores for different sets of data.
+* **Feature Importance**: Gini indexing for each feature.
+
+### 6. Conclusion
+* **Please refer to notebook.**

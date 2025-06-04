@@ -128,7 +128,39 @@ Enter text here...
 
 
 **** Hailey Start
-Enter text here...
+1. Data Exploration
+- Evaluated null value abundance across all features.
+- Features with >10% null values were excluded.
+- Assessed distribution and summary statistics for each feature.
+- Identified skewed distributions to inform preprocessing steps.
+
+2. Preprocessing
+- Removed redundant features.
+- Excluded cancelled flights to focus on factors predictive of flight delay duration.
+Feature Engineering:
+- Created new feature Route by combining Origin and Dest.
+- Generated ratio feature: AirTime / Distance.
+- Applied log transformation to skewed numeric features (e.g., Distance with >3× skew).
+- Indexed categorical variables for ML compatibility.
+- Created multiclass label by binning delay durations into 4 categories.
+
+3. Model 1: Random Forest Classifier
+- Trained a Random Forest model to predict delay duration category.
+- Used feature importance scores to identify the most influential predictors.
+- Planned hyperparameter tuning via a validation dataset if SDSC resources were available.
+
+4. Model 2: K-Means Clustering (Planned if SDSC resources were available) 
+- Fit K-Means on the Feature Matrix
+- Apply K-Means to the preprocessed data (excluding the target/label column).
+- Choose k based on the elbow method or aligned with the number of delay categories (e.g., 4 clusters for 4 delay duration classes).
+- analyze cluster composition by assigning the original delay labels back to each sample after clustering.
+- calculate label proportions in each cluster to identify which clusters are enriched for high-delay flights.
+- Compare feature distributions by cluster. For each feature, plot a heatmap to compare how feature values differ between clusters.
+- Rank features by cluster separation (ANOVA F-value?) to help quantify how strongly a feature is driving cluster formation - how it relates to delay outcomes. 
+
+5. Model 1 & 2 comparisons (Planned if SDSC resources were available)
+- Features with highest Gini scores were to be compared to high ranked features by clustering.
+- Potential interpretations: features that are top-ranked in both models are likely truly important for explaining flight delay. If a feature is ranked highly in clustering but not random forest, it might be associated with delay patterns that the model didn't learn well — useful for model refinement or domain insights.
 
 **** Hailey End
 
@@ -163,9 +195,12 @@ Enter text here...
 
 **** Start
 
-**** Hailey start (if needed, I forgot if you're doing this or not)
-Enter text here...
-
+**** Hailey start
+Potential interpretations if both supervised and unsupervised models were able to be evaluated. Missing ranked features from unsupervised clustering, unable to complete this model without SDSC resources: 
+- Supervised learning (Random Forest): - Used feature importance (Gini) scores to identify the most influential features for accurately predicting flight delay duration.
+-  Unsupervised learning (K-Means): Rank features by cluster separation (ANOVA F-value?) to help quantify how strongly a feature is driving cluster formation - how it relates to delay outcomes.
+- Comparison of top ranked features from both approaches: features that are top-ranked in both models are likely truly important for explaining flight delay.
+- If a feature is ranked highly in clustering but not random forest, it might be associated with delay patterns that the model didn't learn well.
 
 **** Hailey end
 
@@ -180,7 +215,18 @@ Enter text here...
 
 
 **** Hailey Start
-Enter text here...
+
+This project aimed to utilize two distinct methods—Random Forest classification and K-Means clustering—to identify factors associated with flight delays. While both methods aimed to uncover relationships between features and flight delay durations, they operate on fundamentally different principles, making direct comparison both informative and limited.
+
+Random Forest, a supervised learning algorithm, ranks features by their predictive power—specifically, how much each feature contributes to reducing impurity in classifying delay categories. This results in a quantitative feature importance score that highlights variables most useful for prediction, such as origin, distance, or taxi-out time.
+
+In contrast, K-Means clustering is an unsupervised method that groups flights based on feature similarity, without reference to the actual delay categories. After clustering, we can examine the distribution of delay categories within each cluster and analyzed the underlying feature distributions. This approach identifies which feature values (not just features) are common in clusters enriched for each delay category. For example, a cluster characterized by longer delays might also have high values for taxi-out time and low values for flight distance.
+
+Although both methods can highlight relevant features, they do so through different approaches:
+- Random Forest emphasizes which features help a model distinguish between delay categories.
+- K-Means emphasizes which feature values tend to group together in clusters associated with specific delay outcomes.
+
+Despite these differences, the two methods offer complementary insights, features that are ranked highly by both methods (e.g., high Random Forest importance and distinct cluster patterns) provide strong evidence of their relevance to flight delays. Discrepancies between the two can guide further analysis—e.g., a feature important in clustering but not in RF may suggest a variable underrepresented in the model.
 
 **** Hailey End
 
@@ -215,7 +261,7 @@ This is a statement of contribution by each member. This will be taken into cons
 - Start with Name: Title: Contribution. If the person contributed nothing then just put in writing: Did not participate in the project.
 
 1. **Ahyo:**
-2. **Hailey:**
+2. **Hailey:** Coder/Writer/Machine Learning lead. I led the development of the machine learning strategy to assess factors contributing to flight delays, including proposing the use of Random Forest for feature selection and unsupervised clustering for distribution analysis, as I was most familiar with machine learning applications in the group. I designed the data preprocessing workflow, ensuring the dataset was cleaned, structured, and optimized for machine learning implementation using PySpark in which everyone contributed to coding a separate piece of the preprocessing steps. I also contributed to understanding data distributions, skews, and general statistics of the dataset features to set up the preprocessing workflow. 
 3. **Mihir:** Project Manager/Lead/Dev. I contributed by creating document for setting up the local env for everyone to use. Set up github repo and managed the processes to do with SDLC. I contributed to helping set up the data and extracting it to being able to use it by everyone, and contributed to data engineering process for coding. My main focus was to make sure everyone was on same page about the project, and had effective communication and strategy for the project. This work easy to manage since everyone in the project was equally helpful and communicated with each other as needed. I maintained the Git repo and and Pull request members did to make sure no merge conflcits deleted work by others since I was the only member in group experienced in Git. 
 4. **Nam:**
 5. **Rita:**

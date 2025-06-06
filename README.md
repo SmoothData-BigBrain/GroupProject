@@ -109,9 +109,26 @@ Why chosen? why is it cool? General/Broader impact of having a good predictive m
 Figures (of your choosing to help with the narration of your story) with legends (similar to a scientific paper) For reference you search machine learning and your model in google scholar for reference examples.
 **** Nam Start
 ### ... GENERATE IMAGES OF RANDOM FOREST MODEL...
-**Image Example:**
+**Nam's Images:"
+- Decreasing Sample Size
 
-![RandomForest](https://media.datacamp.com/legacy/image/upload/v1677239992/image1_73caef2811.png)
+![SampleSize](./images/train_and_test_accuracies_as_SampleSize_decreases.jpg)
+
+- Increasing NumTrees
+
+![NumTrees](./images/train_and_test_accuracies_as_NumTrees_increases.jpg)
+
+- Increasing MaxDepth
+
+![MaxDepth](./images/train_and_test_accuracies_as_MaxDepth_increases.jpg)
+
+- Hyperparameter Tuning
+
+![HyperParam](./images/hyper_parameter_tuning.jpg)
+
+- Best Model Performance
+
+![BestModel](./images/best_model_performance.jpg)
 
 
 **** Nam End

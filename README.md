@@ -108,29 +108,38 @@ Why chosen? why is it cool? General/Broader impact of having a good predictive m
 ## Figures:
 Figures (of your choosing to help with the narration of your story) with legends (similar to a scientific paper) For reference you search machine learning and your model in google scholar for reference examples.
 **** Nam Start
-### ... GENERATE IMAGES OF RANDOM FOREST MODEL...
-**Nam's Images:"
-- Decreasing Sample Size
+
+### ... GENERATED IMAGES OF RANDOM FOREST MODEL...
+**Nam's Images:**
+#### Decreasing Sample Size
 
 ![SampleSize](./images/train_and_test_accuracies_as_SampleSize_decreases.jpg)
 
-- Increasing NumTrees
+To check the stability of our model, we measured the effect on training and testing accuracy as the sample size was significantly decreased. As can be seen from the plot above, decreasing the sample size did not result in any meaningful changes to accuracy, suggesting that our model is relatively stable. This further allows us to use a much smaller subset of the data for hyper parameter tuning, before eventually scaling back to size. For tuning, we use 0.1% of the data. At this split, accuracy remains the same, but memory usage is greatly imoproved.
+
+#### Increasing NumTrees
 
 ![NumTrees](./images/train_and_test_accuracies_as_NumTrees_increases.jpg)
 
-- Increasing MaxDepth
+The first parameter tuned is NumTrees and the accuracy of the model is measured with 10 trees, 30 trees, and 40 trees, while maintaining MaxDepth at 10. From the plot above, there is no discernable change in accuracy as this parameter is increased.
+
+#### Increasing MaxDepth
 
 ![MaxDepth](./images/train_and_test_accuracies_as_MaxDepth_increases.jpg)
 
-- Hyperparameter Tuning
+Next, we tune MaxDepth using 10, 20, and 30 for this parameter while keeping NumTrees at a constant 10. Here, we observe overfitting as the training accuracy greatly improves while validation accuracy slightly diminishes.
+
+#### Hyperparameter Tuning
 
 ![HyperParam](./images/hyper_parameter_tuning.jpg)
 
-- Best Model Performance
+
+
+#### Best Model Performance
 
 ![BestModel](./images/best_model_performance.jpg)
 
-
+After tuning the parameters, the best model was found to have numTrees equal to 40 and a max depth of 20. Compared with our originally trained model, these parameters increased our test set accuracy by around 10%, resulting in a new accuracy of 52%. While this is a significant increase, and remains well above a model randomly guessing (25%), it still lives a lot of room for improvement. Given more time and available resources, we would have continued to tune these parameters, feature engineer, and perform k-fold cross validation in order to further optimize our model.
 **** Nam End
 
 ## Methods:

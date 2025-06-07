@@ -90,6 +90,8 @@ The full preprocessing pipeline can be found in [GroupProject.ipynb](./notebooks
 
 ---
 # Model Optimization and Final Submission - Milestone 4
+## Abstract 
+We aim to analyze a dataset of approximately 30 million U.S. domestic flights from 2018 to 2022 - around 11GB in size - to understand the key factors contributing to flight delays. The dataset includes features such as scheduled and actual departure/arrival times, delay durations, and reasons for delays or cancellations. Our approach will involve comparing two methods - feature selection using random forest and feature distribution through unsupervised clustering - to identify the most significant factors influencing flight delays. The ultimate goal is to extract insights that can be used to predict flight delay statuses. Given the dataset’s large size (29 million rows and 120 columns), we will leverage PySpark for efficient data processing.
 
 ## Introduction:
 
@@ -102,10 +104,7 @@ By effectively predicting flight delays, travelers, airlines, and airport author
 
 ## Figures:
 Figures (of your choosing to help with the narration of your story) with legends (similar to a scientific paper) For reference you search machine learning and your model in google scholar for reference examples.
-**** Nam Start
 
-### ... GENERATED IMAGES OF RANDOM FOREST MODEL...
-**Nam's Images:**
 #### Decreasing Sample Size
 
 ![SampleSize](./images/train_and_test_accuracies_as_SampleSize_decreases.jpg)
@@ -135,18 +134,9 @@ Next, we tune MaxDepth using 10, 20, and 30 for this parameter while keeping Num
 ![BestModel](./images/best_model_performance.jpg)
 
 After tuning the parameters, the best model was found to have numTrees equal to 40 and a max depth of 20. Compared with our originally trained model, these parameters increased our test set accuracy by around 10%, resulting in a new accuracy of 52%. While this is a significant increase, and remains well above a model randomly guessing (25%), it still lives a lot of room for improvement. Given more time and available resources, we would have continued to tune these parameters, feature engineer, and perform k-fold cross validation in order to further optimize our model.
-**** Nam End
+
 
 ## Methods:
-Methods section (this section will include the exploration results, preprocessing steps, models chosen in the order they were executed. Parameters chosen. Please make sub-sections for every step. i.e Data Exploration, Preprocessing, Model 1, Model 2, additional models are optional , (note models can be the same i.e. DNN but different versions of it if they are distinct enough. Changes can not be incremental). You can put links here to notebooks and/or code blocks using three ` in markup for displaying code. so it would look like this: ``` MY CODE BLOCK ```
-- Note: A methods section does not include any why. the reason why will be in the discussion section. This is just a summary of your methods
-
-### ... METHODS  LIST AND DESCRIPTION...
-**** Mihir Start
-Enter text here...
-
-**** Mihir End
-
 
 **** Hailey Start
 1. Data Exploration
@@ -154,6 +144,28 @@ Enter text here...
 - Features with >10% null values were excluded.
 - Assessed distribution and summary statistics for each feature.
 - Identified skewed distributions to inform preprocessing steps.
+```py
+# Finding stats
+for col_name in cont_cols:
+    q1, median, q3 = filtered_df.approxQuantile(col_name, [0.25, 0.5, 0.75], 0.01)
+    stats["25%"][col_name] = str(q1)
+    stats["50%"][col_name] = str(median)
+    stats["75%"][col_name] = str(q3)
+
+# Removing Null Values
+columns_above_90 = [col_name for col_name, pct in non_null_percentages.items() if pct >= 90]
+filtered_df = df.select(columns_above_90)
+
+# Managing skewed data
+# build rows of (column, absolute_diff, skew direction)
+result_rows = []
+for c in cols: # for each col
+    mean_val = float(mean_row[c]) # get mean
+    median_val = float(median_row[c]) # get median
+    diff = __builtins__.abs(mean_val - median_val) # get abs difference
+    skew = "right" if mean_val > median_val else "left" if mean_val < median_val else "none" # get skew direction
+    result_rows.append(Row(column=c, absolute_diff=diff, skew=skew)) # aggregate
+```
 
 2. Preprocessing
 - Removed redundant features.
@@ -164,11 +176,52 @@ Feature Engineering:
 - Applied log transformation to skewed numeric features (e.g., Distance with >3× skew).
 - Indexed categorical variables for ML compatibility.
 - Created multiclass label by binning delay durations into 4 categories.
+```py
+# Creating new features
+filtered_df = filtered_df.withColumn(
+    "route",
+    F.concat_ws(
+        " - ",
+        F.coalesce(F.col("Origin"), F.lit("Unknown")),
+        F.coalesce(F.col("Dest"), F.lit("Unknown"))
+    )
+)
+
+filtered_df = filtered_df.withColumn(
+    "avg_speed_mph",
+    F.when(
+        F.col("AirTime").isNotNull() & (F.col("AirTime") != 0),
+        F.round((F.col("Distance") / F.col("AirTime")) * 60)
+    ).otherwise(None)
+)
+
+```
+
 
 3. Model 1: Random Forest Classifier
 - Trained a Random Forest model to predict delay duration category.
 - Used feature importance scores to identify the most influential predictors.
 - Planned hyperparameter tuning via a validation dataset if SDSC resources were available.
+```py
+
+# assemble features
+assembler = VectorAssembler(inputCols=feature_cols, outputCol="features")
+# Generate random forest model
+rf = RandomForestClassifier(labelCol="ArrivalDelayGroups", featuresCol="features", seed=42, maxBins=800, numTrees = 5, maxDepth = 3)
+
+...
+# Feature importance
+rf_model = model.stages[-1]  # assuming RF is the last stage
+importances = rf_model.featureImportances
+feature_names = assembler.getInputCols()
+
+importances_list = list(zip(feature_names, importances.toArray()))
+importances_sorted = sorted(importances_list, key=lambda x: x[1], reverse=True)
+
+print("Feature Importances from RF Gini Importance:\n")
+for feat, score in importances_sorted:
+    print(f"{feat}: {score:.4f}")
+```
 
 4. Model 2: K-Means Clustering (Planned if SDSC resources were available) 
 - Fit K-Means on the Feature Matrix
@@ -182,8 +235,6 @@ Feature Engineering:
 5. Model 1 & 2 comparisons (Planned if SDSC resources were available)
 - Features with highest Gini scores were to be compared to high ranked features by clustering.
 - Potential interpretations: features that are top-ranked in both models are likely truly important for explaining flight delay. If a feature is ranked highly in clustering but not random forest, it might be associated with delay patterns that the model didn't learn well — useful for model refinement or domain insights.
-
-**** Hailey End
 
 **** Ahyo Start (if needed)
 Enter text here...
@@ -213,29 +264,17 @@ This will include the results from the methods listed above (C). You will have f
 **** Rita Start
 Enter text here...
 
+**** Rita Ends
 
-**** Start
 
-**** Hailey start
 Potential interpretations if both supervised and unsupervised models were able to be evaluated. Missing ranked features from unsupervised clustering, unable to complete this model without SDSC resources: 
 - Supervised learning (Random Forest): - Used feature importance (Gini) scores to identify the most influential features for accurately predicting flight delay duration.
 -  Unsupervised learning (K-Means): Rank features by cluster separation (ANOVA F-value?) to help quantify how strongly a feature is driving cluster formation - how it relates to delay outcomes.
 - Comparison of top ranked features from both approaches: features that are top-ranked in both models are likely truly important for explaining flight delay.
 - If a feature is ranked highly in clustering but not random forest, it might be associated with delay patterns that the model didn't learn well.
 
-**** Hailey end
 
 ## Discussion:
-This is where you will discuss the why, and your interpretation and your though process from beginning to end. This will mimic the sections you have created in your methods section as well as new sections you feel you need to create. You can also discuss how believable your results are at each step. You can discuss any short comings. It's ok to criticize as this shows your intellectual merit, as to how you are thinking about things scientifically and how you are able to correctly scrutinize things and find short comings. In science we never really find the perfect solution, especially since we know something will probably come up int he future (i.e. donkeys) and mess everything up. If you do it's probably a unicorn or the data and model you chose are just perfect for each other!
-
-**** As needed write discussion under your block
-**** Mihir Start
-Enter text here...
-
-**** Mihir End
-
-
-**** Hailey Start
 
 This project aimed to utilize two distinct methods—Random Forest classification and K-Means clustering—to identify factors associated with flight delays. While both methods aimed to uncover relationships between features and flight delay durations, they operate on fundamentally different principles, making direct comparison both informative and limited.
 
@@ -249,18 +288,9 @@ Although both methods can highlight relevant features, they do so through differ
 
 Despite these differences, the two methods offer complementary insights, features that are ranked highly by both methods (e.g., high Random Forest importance and distinct cluster patterns) provide strong evidence of their relevance to flight delays. Discrepancies between the two can guide further analysis—e.g., a feature important in clustering but not in RF may suggest a variable underrepresented in the model.
 
-**** Hailey End
+To further refine our predictive capability, we undertook extensive preprocessing and feature engineering. Initially, during data exploration, we identified and removed redundant and duplicate features to streamline the dataset and avoid overwhelming the models with unnecessary or noisy data. Recognizing that flight delays are influenced by numerous variables—including mechanical issues, passenger boarding/offboarding times, and weather disturbances—our dataset posed unique challenges, as some dynamic factors, like real-time weather conditions, were not directly captured. We addressed this by creating novel features, such as combining "Origin" and "Destination" into a unified "Route" feature and calculating ratios like AirTime-to-Distance to better encapsulate flight characteristics. These new derived features aimed to enhance the Random Forest model's predictive performance by providing clearer indicators of delay patterns and more informative inputs, ultimately supporting more accurate and robust predictions. 
 
-**** Ahyo Start (if needed)
-Enter text here...
-
-**** Ahyo End
-
-**** Nam start
-Enter text here...
-
-
-**** Name end
+We acknowledge that certain dynamic variables were unavailable or omitted during preprocessing, and crucial information may have been inadvertently removed. Our analysis specifically focused on departure delays; however, in practice, pilots often compensate for late departures by adjusting flight operations—such as optimizing climb and cruise speeds—when weather conditions permit, enabling on-time arrivals despite initial setbacks. In our case, it may be completely possible to predict if a plane would be delayed or not, but this does not necessarily correlate with arriving later than the scheduled arrival time. Investigating arrival delays would require a separate study and additional data processing beyond the scope of this project.
 
 
 **** Rita Start

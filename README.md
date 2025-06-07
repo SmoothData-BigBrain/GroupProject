@@ -92,17 +92,12 @@ The full preprocessing pipeline can be found in [GroupProject.ipynb](./notebooks
 # Model Optimization and Final Submission - Milestone 4
 
 ## Introduction:
-Why chosen? why is it cool? General/Broader impact of having a good predictive mode. i.e. why is this important?
-**** Mihir Start
 
+Modern transportation has significantly evolved, ranging from walking and horse-drawn carriages to advanced systems such as cars, buses, subways, and airplanes. Among these, air travel stands out due to its speed, convenience, and the ability to bridge large distances quickly. Accurate travel planning, including precise departure and arrival times, is crucial in our fast-paced world, as delays can result in lost productivity, increased stress, and disrupted schedules. In 2023 alone, over 2.6 billion passengers used domestic air travel in the U.S., emphasizing the scale and impact of delays.
 
-**** Mihir End
+We selected the U.S. Domestic Flights Delay dataset (2018-2022) from Kaggle due to its extensive coverage, containing roughly 30 million records detailing various factors associated with flight scheduling and delays. This comprehensive dataset provides rich insights into scheduled versus actual departure and arrival times, delay durations, and specific reasons for cancellations or delays. Our goal is to identify and analyze the most influential factors leading to delays by applying advanced data analysis techniques, specifically feature selection through random forest and feature distribution via unsupervised clustering.
 
-### ... INTRO ...
-**Why chosen?** We chose this model and dataset because  
-**** Mihir start
-
-**** Mihir End
+By effectively predicting flight delays, travelers, airlines, and airport authorities can proactively manage disruptions, significantly improving passenger satisfaction, reducing operational costs, and enhancing overall efficiency. Ultimately, our analysis aims to deliver valuable insights that can facilitate better planning, optimize time usage, and positively influence millions of travelers each year.
 
 
 ## Figures:

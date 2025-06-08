@@ -198,7 +198,7 @@ for feat, score in importances_sorted:
 - Compare feature distributions by cluster. For each feature, plot a heatmap to compare how feature values differ between clusters.
 - Rank features by cluster separation (ANOVA F-value?) to help quantify how strongly a feature is driving cluster formation - how it relates to delay outcomes. 
 
-5. Model 1 & 2 comparisons (Planned if SDSC resources were available)
+### 5. Model 1 & 2 comparisons (Planned if SDSC resources were available)
 - Features with highest Gini scores were to be compared to high ranked features by clustering.
 - Potential interpretations: features that are top-ranked in both models are likely truly important for explaining flight delay. If a feature is ranked highly in clustering but not random forest, it might be associated with delay patterns that the model didn't learn well — useful for model refinement or domain insights.
 

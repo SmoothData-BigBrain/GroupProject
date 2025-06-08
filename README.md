@@ -90,7 +90,9 @@ The full preprocessing pipeline can be found in [GroupProject.ipynb](./notebooks
 
 ---
 # Model Optimization and Final Submission - Milestone 4
+
 ## Abstract 
+
 We aim to analyze a dataset of approximately 30 million U.S. domestic flights from 2018 to 2022 - around 11GB in size - to understand the key factors contributing to flight delays. The dataset includes features such as scheduled and actual departure/arrival times, delay durations, and reasons for delays or cancellations. Our approach will involve comparing two methods - feature selection using random forest and feature distribution through unsupervised clustering - to identify the most significant factors influencing flight delays. The ultimate goal is to extract insights that can be used to predict flight delay statuses. Given the dataset’s large size (29 million rows and 120 columns), we will leverage PySpark for efficient data processing.
 
 ## Introduction
@@ -103,7 +105,6 @@ By effectively predicting flight delays, travelers, airlines, and airport author
 
 ## Methods
 
-**** Hailey Start
 ### 1. Data Exploration
 - Evaluated null value abundance across all features.
 - Features with >10% null values were excluded.
@@ -162,7 +163,6 @@ filtered_df = filtered_df.withColumn(
 
 ```
 
-
 ### 3. Model 1: Random Forest Classifier
 - Trained a Random Forest model to predict delay duration category.
 - Used feature importance scores to identify the most influential predictors.
@@ -202,31 +202,8 @@ for feat, score in importances_sorted:
 - Features with highest Gini scores were to be compared to high ranked features by clustering.
 - Potential interpretations: features that are top-ranked in both models are likely truly important for explaining flight delay. If a feature is ranked highly in clustering but not random forest, it might be associated with delay patterns that the model didn't learn well — useful for model refinement or domain insights.
 
-**** Ahyo Start (if needed)
-Enter text here...
-
-**** Ahyo End
-
-**** Nam start
-Enter text here...
-
-
-**** Name end
-
-
-**** Rita Start
-Enter text here...
-
-
-**** Rita End
-
-
 ## Results:
-This will include the results from the methods listed above (C). You will have figures here about your results as well.
-- No exploration of results is done here. This is mainly just a summary of your results. The sub-sections will be the same as the sections in your methods section.
-- Your final model and final results summary will go in the last paragraph.
 
-**** Rita Start
 ### 1. Data Exploration
 Our unfiltered dataset had a shape of 29193782 rows and 120 columns. In the initial data exploration, we chose to remove the columns that more than 10% of null values, leaving us with 62 columns out of the original 120 columns to work with. After removing these columns, we decided to explore the top 20 most skewed columns as seen below. Most of which are skewed right, aside from WheelsOn, ArrTime, and CRSArrTime, which are skewed left. 
 
@@ -239,10 +216,6 @@ For feature expansion, Route was created by combining the Origin and Dest column
 
 ### 3. Model 1: Random Forest Classifier
 Our first model yielded an accuracy score of ~42% for both the training and test data. Overfitting was not strongly observed, as both training and test accuracies were similar. The most influential features were TaxiOut and ArrTime, both of which are likely indicators of delay and are available before the flight departs. The model's accuracy was below our expectations, and further optimizations and alternative models such as XGBoost were planned to improve performance.
-
-![alt text](../../../Desktop/Picture1.jpg)
-
-**** Rita End
 
 #### Preliminary Hyperparameter tuning
 Despite not being able to fully optimize our model, we did take some preliminary steps by tuning parameters. The results of this process are given by the images below:
@@ -271,14 +244,7 @@ Next, we tune MaxDepth using 10, 20, and 30 for this parameter while keeping Num
 
 After tuning the parameters, the best model was found to have numTrees equal to 40 and a max depth of 20. Compared with our originally trained model, these parameters increased our test set accuracy by around 10%, resulting in a new accuracy of 52%. While this is a significant increase, and remains well above a model randomly guessing (25%), it still leaves a lot of room for improvement. Given more time and available resources, we would have continued to tune these parameters, feature engineer, and compare different machine learning methods.
 
-Potential interpretations if both supervised and unsupervised models were able to be evaluated. Missing ranked features from unsupervised clustering, unable to complete this model without SDSC resources: 
-- Supervised learning (Random Forest): - Used feature importance (Gini) scores to identify the most influential features for accurately predicting flight delay duration.
--  Unsupervised learning (K-Means): Rank features by cluster separation (ANOVA F-value?) to help quantify how strongly a feature is driving cluster formation - how it relates to delay outcomes.
-- Comparison of top ranked features from both approaches: features that are top-ranked in both models are likely truly important for explaining flight delay.
-- If a feature is ranked highly in clustering but not random forest, it might be associated with delay patterns that the model didn't learn well.
-
-
-## Discussion:
+## Discussion
 
 This project aimed to utilize two distinct methods—Random Forest classification and K-Means clustering—to identify factors associated with flight delays. While both methods aimed to uncover relationships between features and flight delay durations, they operate on fundamentally different principles, making direct comparison both informative and limited.
 
@@ -296,16 +262,8 @@ To further refine our predictive capability, we undertook extensive preprocessin
 
 We acknowledge that certain dynamic variables were unavailable or omitted during preprocessing, and crucial information may have been inadvertently removed. Our analysis specifically focused on departure delays; however, in practice, pilots often compensate for late departures by adjusting flight operations—such as optimizing climb and cruise speeds—when weather conditions permit, enabling on-time arrivals despite initial setbacks. In our case, it may be completely possible to predict if a plane would be delayed or not, but this does not necessarily correlate with arriving later than the scheduled arrival time. Investigating arrival delays would require a separate study and additional data processing beyond the scope of this project.
 
-
-**** Rita Start
-Enter text here...
-
-
-**** Rita End
-
 ## Conclusion
 
-**** Group Start
 This project offered valuable insight into the complex and multifaceted nature of flight delays across the U.S. domestic air travel system. By leveraging a large-scale dataset and applying both supervised and unsupervised learning techniques—Random Forest classification and K-Means clustering (planned)—we aimed to identify which factors most influence flight delay durations.
 
 Through extensive preprocessing and feature engineering, we distilled a highly dimensional dataset into a manageable, informative form. Our Random Forest model, after preliminary hyperparameter tuning, achieved an improved accuracy of approximately 52%, up from an initial 42%. While modest, this result suggests that meaningful predictive signals exist in the data and that our feature selection strategies enhanced model interpretability and utility.
@@ -324,15 +282,11 @@ If given more time and computing power, future iterations of this project could 
 
 Ultimately, while our current findings already offer actionable insights—such as the critical importance of features like TaxiOut and ArrTime—this work serves as a foundational step. With continued development, the framework and learnings from this project can contribute meaningfully to efforts aimed at minimizing delays, optimizing flight operations, and improving the overall travel experience for millions of passengers.
 
-**** Group end
-
 ## Collaboration:
-This is a statement of contribution by each member. This will be taken into consideration when making the final grade for each member in the group. Did you work as a team? was there a team leader? project manager? coding? writer? etc. Please be truthful about this as this will determine individual grades in participation. There is no job that is better than the other. If you did no code but did the entire write up and gave feedback during the steps and collaborated then you would still get full credit. If you only coded but gave feedback on the write up and other things, then you still get full credit. If you managed everyone and the deadlines and setup meetings and communicated with teaching staff only then you get full credit. Every role is important as long as you collaborated and were integral to the completion of the project. If the person did nothing. they risk getting a big fat 0. Just like in any job, if you did nothing, you have the risk of getting fired. Teamwork is one of the most important qualities in industry and academia!!!
-- Start with Name: Title: Contribution. If the person contributed nothing then just put in writing: Did not participate in the project.
 
 1. **Ahyo:** *Coding/Management:* I set up initial communication through discord and email and helped organize meetings throughout the project. After selecting our dataset, I created the foundational notebook for us to use for the remainder. I aided in exploring the dataset through pyspark. Specifically, I developed several stacked barcharts showing flight departure delays grouped by origin airport, year, and month categorized as early, on time, or late. To preprocess the data, I, along with the rest of the team, wrote code to clean, feature engineer, and transform the dataset, preparing it for modeling. Finally, I was responsible for writing and organizing much of the README.md file that outlines this project.
-2. **Hailey:** *Coder/Writer/Machine Learning lead:* I led the development of the machine learning strategy to assess factors contributing to flight delays, including proposing the use of Random Forest for feature selection and unsupervised clustering for distribution analysis, as I was most familiar with machine learning applications in the group. I designed the data preprocessing workflow, ensuring the dataset was cleaned, structured, and optimized for machine learning implementation using PySpark in which everyone contributed to coding a separate piece of the preprocessing steps. I also contributed to understanding data distributions, skews, and general statistics of the dataset features to set up the preprocessing workflow. 
-3. **Mihir:** *Project Manager/Lead/Dev:* I contributed by creating document for setting up the local env for everyone to use. Set up github repo and managed the processes to do with SDLC. I contributed to helping set up the data and extracting it to being able to use it by everyone, and contributed to data engineering process for coding. My main focus was to make sure everyone was on same page about the project, and had effective communication and strategy for the project. This work easy to manage since everyone in the project was equally helpful and communicated with each other as needed. I maintained the Git repo and and Pull request members did to make sure no merge conflcits deleted work by others since I was the only member in group experienced in Git. 
+2. **Hailey:** *Coder/Writer/Machine Learning lead:* I led the development of the machine learning strategy to assess factors contributing to flight delays, including proposing the use of Random Forest for feature selection and unsupervised clustering for distribution analysis, as I was most familiar with machine learning applications in the group. I designed the data preprocessing workflow, ensuring the dataset was cleaned, structured, and optimized for machine learning implementation using PySpark in which everyone contributed to coding a separate piece of the preprocessing steps. I also contributed to understanding data distributions, skews, and general statistics of the dataset features to set up the preprocessing workflow.
+3. **Mihir:** *Project Manager/Lead/Dev:* I contributed by creating document for setting up the local env for everyone to use. Set up github repo and managed the processes to do with SDLC. I contributed to helping set up the data and extracting it to being able to use it by everyone, and contributed to data engineering process for coding. My main focus was to make sure everyone was on same page about the project, and had effective communication and strategy for the project. This work easy to manage since everyone in the project was equally helpful and communicated with each other as needed. I maintained the Git repo and and Pull request members did to make sure no merge conflcits deleted work by others since I was the only member in group experienced in Git.
 4. **Nam:** *Coder/Machine Learning Specialist/Feature Engineer*: I explored, cleaned, and pioneered a pathforward for our dataset through milestone 3 and 4. I trained and validated different Random Forest models for milestone 4. Before the ML portion of milestone-4 being cancelled, I started validating smaller subsets of the dataset for easy handling and training. I further worked on hyper-parameter tuning with numTrees and maxDepths improving model's performance by 10%. I intended to explore a new direction for our project by training a Boosted Gradient Tree since the Random Forest is much better than random guessing (0.25 accuracy). I wrote up report and conclusion for my parts in each milestone. For milestone 3, I contributed in the group writeup and README.md.
 5. **Rita:** *Coder:* I aided in finding and selecting the dataset and exploring some of the dataset through PySpark. In milestone 2, I developed bar charts exploring the top 10 most delayed routes and the top 10 most delayed airlines. I also developed a scatterplot to explore if delayed flights and distance had any sort of correlation. In milestone 3, I assisted in selecting redundant columns in our dataset and removing them to make preprocessing run more smoothly and ensure that the model was not affected on irrelevant or highly correlated data.
 

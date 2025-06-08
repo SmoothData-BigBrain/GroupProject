@@ -303,11 +303,26 @@ Enter text here...
 
 **** Rita End
 
-## Conclusion:
-This is where you do a mind dump on your opinions and possible future directions. Basically what you wish you could have done differently. Here you close with final thoughts
+## Conclusion
 
 **** Group Start
-Enter text here...
+This project offered valuable insight into the complex and multifaceted nature of flight delays across the U.S. domestic air travel system. By leveraging a large-scale dataset and applying both supervised and unsupervised learning techniques—Random Forest classification and K-Means clustering (planned)—we aimed to identify which factors most influence flight delay durations.
+
+Through extensive preprocessing and feature engineering, we distilled a highly dimensional dataset into a manageable, informative form. Our Random Forest model, after preliminary hyperparameter tuning, achieved an improved accuracy of approximately 52%, up from an initial 42%. While modest, this result suggests that meaningful predictive signals exist in the data and that our feature selection strategies enhanced model interpretability and utility.
+
+However, the project faced limitations due to resource constraints, particularly in implementing the unsupervised clustering pipeline. Completing this aspect would have allowed a deeper understanding of how delay patterns naturally group and how certain feature values correlate with those clusters—potentially uncovering delay causes that supervised models overlook.
+
+If given more time and computing power, future iterations of this project could include:
+
+- **Expanded hyperparameter tuning** and model selection using larger subsets of the data and alternate algorithms like XGBoost or Gradient Boosted Trees for improved performance.
+
+- **Full execution of the clustering workflow**, including feature distribution analysis and ANOVA-based feature ranking, to compare with supervised insights.
+
+- **Integration of external data sources**, such as real-time or historical weather data, airport congestion levels, or FAA airspace restrictions, to enhance predictive power and explainability.
+
+- **Exploration of arrival delay prediction**, recognizing that on-time departures do not always equate to on-time arrivals, and understanding the interplay between the two delay types could yield more comprehensive models.
+
+Ultimately, while our current findings already offer actionable insights—such as the critical importance of features like TaxiOut and ArrTime—this work serves as a foundational step. With continued development, the framework and learnings from this project can contribute meaningfully to efforts aimed at minimizing delays, optimizing flight operations, and improving the overall travel experience for millions of passengers.
 
 **** Group end
 

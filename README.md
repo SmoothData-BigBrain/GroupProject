@@ -264,7 +264,7 @@ This will include the results from the methods listed above (C). You will have f
 **** Rita Start
 1. Data Exploration
 Our unfiltered dataset had a shape of 29193782 rows and 120 columns. In the initial data exploration, we chose to remove the columns that more than 10% of null values, leaving us with 62 columns out of the original 120 columns to work with. After removing these columns, we decided to explore the top 20 most skewed columns as seen below. Most of which are skewed right, aside from WheelsOn, ArrTime, and CRSArrTime, which are skewed left. 
-![alt text](image.png)
+![hist_plots](./images/histogram_plots.png)
 
 2. Preprocessing 
 We decided to remove columns we thought to be redundant for analysis or were related to other columns. For instance, we removed FlightDate because of the Year, Month, and DayofWeek columns. For missing data, columns with more than 10% of null values were excluded from our analysis. Columns that had 1-3% of msising values were Tail_Number, DepTime, DepDelay, DepDelayMinutes, DepDel15, DepartureDelayGroups, WheelsOff, TaxiOut, ArrTime, WheelsOn, TaxiIn, ActualElapsedTime, ArrDelay, ArrDelayMinutes, ArrDel15,  ArrivalDelayGroups, and AirTime. Their missing values were handled by just removing the missing rows. 

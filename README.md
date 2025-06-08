@@ -262,10 +262,20 @@ This will include the results from the methods listed above (C). You will have f
 
 ### ... RESULTS FROM METHODS ...
 **** Rita Start
-Enter text here...
+1. Data Exploration
+Our unfiltered dataset had a shape of 29193782 rows and 120 columns. In the initial data exploration, we chose to remove the columns that more than 10% of null values, leaving us with 62 columns out of the original 120 columns to work with. After removing these columns, we decided to explore the top 20 most skewed columns as seen below. Most of which are skewed right, aside from WheelsOn, ArrTime, and CRSArrTime, which are skewed left. 
+![alt text](image.png)
 
-**** Rita Ends
+2. Preprocessing 
+We decided to remove columns we thought to be redundant for analysis or were related to other columns. For instance, we removed FlightDate because of the Year, Month, and DayofWeek columns. For missing data, columns with more than 10% of null values were excluded from our analysis. Columns that had 1-3% of msising values were Tail_Number, DepTime, DepDelay, DepDelayMinutes, DepDel15, DepartureDelayGroups, WheelsOff, TaxiOut, ArrTime, WheelsOn, TaxiIn, ActualElapsedTime, ArrDelay, ArrDelayMinutes, ArrDel15,  ArrivalDelayGroups, and AirTime. Their missing values were handled by just removing the missing rows. 
 
+For feature expansion, Route was created by combining the Origin and Dest columns. Avg_speed_mph (Distance/AirTime * 60) and num_flights (the count of each route) were created to aid in model performance. Categorical variables were indexed using StringIndexer to convert them to numeric values to be used in the Random Forest model.
+
+3. Model 1: Random Forest Classifier
+Our first model yielded an accuracy score of ~42% for both the training and test data. Overfitting was not strongly observed, as both training and test accuracies were similar. The most influential features were TaxiOut and ArrTime, both of which are likely indicators of delay and are available before the flight departs. The model's accuracy was below our expectations, and further optimizations and alternative models such as XGBoost were planned to improve performance.
+![alt text](../../../Desktop/Picture1.jpg)
+
+**** Rita End
 
 Potential interpretations if both supervised and unsupervised models were able to be evaluated. Missing ranked features from unsupervised clustering, unable to complete this model without SDSC resources: 
 - Supervised learning (Random Forest): - Used feature importance (Gini) scores to identify the most influential features for accurately predicting flight delay duration.
@@ -315,5 +325,5 @@ This is a statement of contribution by each member. This will be taken into cons
 2. **Hailey:** *Coder/Writer/Machine Learning lead:* I led the development of the machine learning strategy to assess factors contributing to flight delays, including proposing the use of Random Forest for feature selection and unsupervised clustering for distribution analysis, as I was most familiar with machine learning applications in the group. I designed the data preprocessing workflow, ensuring the dataset was cleaned, structured, and optimized for machine learning implementation using PySpark in which everyone contributed to coding a separate piece of the preprocessing steps. I also contributed to understanding data distributions, skews, and general statistics of the dataset features to set up the preprocessing workflow. 
 3. **Mihir:** *Project Manager/Lead/Dev:* I contributed by creating document for setting up the local env for everyone to use. Set up github repo and managed the processes to do with SDLC. I contributed to helping set up the data and extracting it to being able to use it by everyone, and contributed to data engineering process for coding. My main focus was to make sure everyone was on same page about the project, and had effective communication and strategy for the project. This work easy to manage since everyone in the project was equally helpful and communicated with each other as needed. I maintained the Git repo and and Pull request members did to make sure no merge conflcits deleted work by others since I was the only member in group experienced in Git. 
 4. **Nam:**
-5. **Rita:**
+5. **Rita:** *Coder:* I aided in finding and selecting the dataset and exploring some of the dataset through PySpark. In milestone 2, I developed bar charts exploring the top 10 most delayed routes and the top 10 most delayed airlines. I also developed a scatterplot to explore if delayed flights and distance had any sort of correlation. In milestone 3, I assisted in selecting redundant columns in our dataset and removing them to make preprocessing run more smoothly and ensure that the model was not affected on irrelevant or highly correlated data.
 

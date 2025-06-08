@@ -93,7 +93,7 @@ The full preprocessing pipeline can be found in [GroupProject.ipynb](./notebooks
 ## Abstract 
 We aim to analyze a dataset of approximately 30 million U.S. domestic flights from 2018 to 2022 - around 11GB in size - to understand the key factors contributing to flight delays. The dataset includes features such as scheduled and actual departure/arrival times, delay durations, and reasons for delays or cancellations. Our approach will involve comparing two methods - feature selection using random forest and feature distribution through unsupervised clustering - to identify the most significant factors influencing flight delays. The ultimate goal is to extract insights that can be used to predict flight delay statuses. Given the dataset’s large size (29 million rows and 120 columns), we will leverage PySpark for efficient data processing.
 
-## Introduction:
+## Introduction
 
 Modern transportation has significantly evolved, ranging from walking and horse-drawn carriages to advanced systems such as cars, buses, subways, and airplanes. Among these, air travel stands out due to its speed, convenience, and the ability to bridge large distances quickly. Accurate travel planning, including precise departure and arrival times, is crucial in our fast-paced world, as delays can result in lost productivity, increased stress, and disrupted schedules. In 2023 alone, over 2.6 billion passengers used domestic air travel in the U.S., emphasizing the scale and impact of delays.
 
@@ -101,42 +101,7 @@ We selected the U.S. Domestic Flights Delay dataset (2018-2022) from Kaggle due 
 
 By effectively predicting flight delays, travelers, airlines, and airport authorities can proactively manage disruptions, significantly improving passenger satisfaction, reducing operational costs, and enhancing overall efficiency. Ultimately, our analysis aims to deliver valuable insights that can facilitate better planning, optimize time usage, and positively influence millions of travelers each year.
 
-
-## Figures:
-Figures (of your choosing to help with the narration of your story) with legends (similar to a scientific paper) For reference you search machine learning and your model in google scholar for reference examples.
-
-#### Decreasing Sample Size
-
-![SampleSize](./images/train_and_test_accuracies_as_SampleSize_decreases.jpg)
-
-To check the stability of our model, we measured the effect on training and testing accuracy as the sample size was significantly decreased. As can be seen from the plot above, decreasing the sample size did not result in any meaningful changes to accuracy, suggesting that our model is relatively stable. This further allows us to use a much smaller subset of the data for hyper parameter tuning, before eventually scaling back to size. For tuning, we use 0.1% of the data. At this split, accuracy remains the same, but memory usage is greatly improved.
-
-#### Increasing NumTrees
-
-![NumTrees](./images/train_and_test_accuracies_as_NumTrees_increases.jpg)
-
-The first parameter tuned is NumTrees and the accuracy of the model is measured with 10 trees, 30 trees, and 40 trees, while maintaining MaxDepth at 10. From the plot above, there is no discernable change in accuracy as this parameter is increased.
-
-#### Increasing MaxDepth
-
-![MaxDepth](./images/train_and_test_accuracies_as_MaxDepth_increases.jpg)
-
-Next, we tune MaxDepth using 10, 20, and 30 for this parameter while keeping NumTrees at a constant 10. Here, we observe overfitting as the training accuracy greatly improves while validation accuracy slightly diminishes.
-
-#### Hyperparameter Tuning
-
-![HyperParam](./images/hyper_parameter_tuning.jpg)
-
-
-
-#### Best Model Performance
-
-![BestModel](./images/best_model_performance.jpg)
-
-After tuning the parameters, the best model was found to have numTrees equal to 40 and a max depth of 20. Compared with our originally trained model, these parameters increased our test set accuracy by around 10%, resulting in a new accuracy of 52%. While this is a significant increase, and remains well above a model randomly guessing (25%), it still lives a lot of room for improvement. Given more time and available resources, we would have continued to tune these parameters, feature engineer, and perform k-fold cross validation in order to further optimize our model.
-
-
-## Methods:
+## Methods
 
 **** Hailey Start
 1. Data Exploration
@@ -262,20 +227,47 @@ This will include the results from the methods listed above (C). You will have f
 
 ### ... RESULTS FROM METHODS ...
 **** Rita Start
-1. Data Exploration
+### 1. Data Exploration
 Our unfiltered dataset had a shape of 29193782 rows and 120 columns. In the initial data exploration, we chose to remove the columns that more than 10% of null values, leaving us with 62 columns out of the original 120 columns to work with. After removing these columns, we decided to explore the top 20 most skewed columns as seen below. Most of which are skewed right, aside from WheelsOn, ArrTime, and CRSArrTime, which are skewed left. 
 ![hist_plots](./images/histogram_plots.png)
 
-2. Preprocessing 
+### 2. Preprocessing 
 We decided to remove columns we thought to be redundant for analysis or were related to other columns. For instance, we removed FlightDate because of the Year, Month, and DayofWeek columns. For missing data, columns with more than 10% of null values were excluded from our analysis. Columns that had 1-3% of msising values were Tail_Number, DepTime, DepDelay, DepDelayMinutes, DepDel15, DepartureDelayGroups, WheelsOff, TaxiOut, ArrTime, WheelsOn, TaxiIn, ActualElapsedTime, ArrDelay, ArrDelayMinutes, ArrDel15,  ArrivalDelayGroups, and AirTime. Their missing values were handled by just removing the missing rows. 
 
 For feature expansion, Route was created by combining the Origin and Dest columns. Avg_speed_mph (Distance/AirTime * 60) and num_flights (the count of each route) were created to aid in model performance. Categorical variables were indexed using StringIndexer to convert them to numeric values to be used in the Random Forest model.
 
-3. Model 1: Random Forest Classifier
+### 3. Model 1: Random Forest Classifier
 Our first model yielded an accuracy score of ~42% for both the training and test data. Overfitting was not strongly observed, as both training and test accuracies were similar. The most influential features were TaxiOut and ArrTime, both of which are likely indicators of delay and are available before the flight departs. The model's accuracy was below our expectations, and further optimizations and alternative models such as XGBoost were planned to improve performance.
 ![alt text](../../../Desktop/Picture1.jpg)
 
 **** Rita End
+
+#### Preliminary Hyperparameter tuning
+Despite not being able to fully optimize our model, we did take some preliminary steps by tuning parameters. The results of this process are given by the images below:
+
+**Decreasing Sample Size**
+
+![SampleSize](./images/train_and_test_accuracies_as_SampleSize_decreases.jpg)
+
+To check the stability of our model, we measured the effect on training and testing accuracy as the sample size was significantly decreased. As can be seen from the plot above, decreasing the sample size did not result in any meaningful changes to accuracy, suggesting that our model is relatively stable. This further allows us to use a much smaller subset of the data for hyper parameter tuning, before eventually scaling back to size. For tuning, we use 0.1% of the data. At this split, accuracy remains the same, but memory usage is greatly improved.
+
+**Increasing `numTrees`**
+
+![NumTrees](./images/train_and_test_accuracies_as_NumTrees_increases.jpg)
+
+The first parameter tuned is NumTrees and the accuracy of the model is measured with 10 trees, 30 trees, and 40 trees, while maintaining MaxDepth at 10. From the plot above, there is no discernable change in accuracy as this parameter is increased.
+
+**Increasing `maxDepth`**
+
+![MaxDepth](./images/train_and_test_accuracies_as_MaxDepth_increases.jpg)
+
+Next, we tune MaxDepth using 10, 20, and 30 for this parameter while keeping NumTrees at a constant 10. Here, we observe overfitting as the training accuracy greatly improves while validation accuracy slightly diminishes.
+
+**Best Model Performance**
+
+![BestModel](./images/best_model_performance.jpg)
+
+After tuning the parameters, the best model was found to have numTrees equal to 40 and a max depth of 20. Compared with our originally trained model, these parameters increased our test set accuracy by around 10%, resulting in a new accuracy of 52%. While this is a significant increase, and remains well above a model randomly guessing (25%), it still leaves a lot of room for improvement. Given more time and available resources, we would have continued to tune these parameters, feature engineer, and compare different machine learning methods.
 
 Potential interpretations if both supervised and unsupervised models were able to be evaluated. Missing ranked features from unsupervised clustering, unable to complete this model without SDSC resources: 
 - Supervised learning (Random Forest): - Used feature importance (Gini) scores to identify the most influential features for accurately predicting flight delay duration.

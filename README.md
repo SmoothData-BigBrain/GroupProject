@@ -109,7 +109,7 @@ Figures (of your choosing to help with the narration of your story) with legends
 
 ![SampleSize](./images/train_and_test_accuracies_as_SampleSize_decreases.jpg)
 
-To check the stability of our model, we measured the effect on training and testing accuracy as the sample size was significantly decreased. As can be seen from the plot above, decreasing the sample size did not result in any meaningful changes to accuracy, suggesting that our model is relatively stable. This further allows us to use a much smaller subset of the data for hyper parameter tuning, before eventually scaling back to size. For tuning, we use 0.1% of the data. At this split, accuracy remains the same, but memory usage is greatly imoproved.
+To check the stability of our model, we measured the effect on training and testing accuracy as the sample size was significantly decreased. As can be seen from the plot above, decreasing the sample size did not result in any meaningful changes to accuracy, suggesting that our model is relatively stable. This further allows us to use a much smaller subset of the data for hyper parameter tuning, before eventually scaling back to size. For tuning, we use 0.1% of the data. At this split, accuracy remains the same, but memory usage is greatly improved.
 
 #### Increasing NumTrees
 

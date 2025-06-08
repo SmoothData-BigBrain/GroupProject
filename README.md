@@ -104,7 +104,7 @@ By effectively predicting flight delays, travelers, airlines, and airport author
 ## Methods
 
 **** Hailey Start
-1. Data Exploration
+### 1. Data Exploration
 - Evaluated null value abundance across all features.
 - Features with >10% null values were excluded.
 - Assessed distribution and summary statistics for each feature.
@@ -132,7 +132,7 @@ for c in cols: # for each col
     result_rows.append(Row(column=c, absolute_diff=diff, skew=skew)) # aggregate
 ```
 
-2. Preprocessing
+### 2. Preprocessing
 - Removed redundant features.
 - Excluded cancelled flights to focus on factors predictive of flight delay duration.
 Feature Engineering:
@@ -163,10 +163,11 @@ filtered_df = filtered_df.withColumn(
 ```
 
 
-3. Model 1: Random Forest Classifier
+### 3. Model 1: Random Forest Classifier
 - Trained a Random Forest model to predict delay duration category.
 - Used feature importance scores to identify the most influential predictors.
-- Planned hyperparameter tuning via a validation dataset if SDSC resources were available.
+- Preliminary hyperparemeter tuning done by measuring accuracy when varying `numTrees` and `maxDepth`.
+- Further hyperparameter tuning via a validation dataset was planned if SDSC resources were available.
 ```py
 
 # assemble features
@@ -188,7 +189,7 @@ for feat, score in importances_sorted:
     print(f"{feat}: {score:.4f}")
 ```
 
-4. Model 2: K-Means Clustering (Planned if SDSC resources were available) 
+### 4. Model 2: K-Means Clustering (Planned if SDSC resources were available) 
 - Fit K-Means on the Feature Matrix
 - Apply K-Means to the preprocessed data (excluding the target/label column).
 - Choose k based on the elbow method or aligned with the number of delay categories (e.g., 4 clusters for 4 delay duration classes).
@@ -225,10 +226,10 @@ This will include the results from the methods listed above (C). You will have f
 - No exploration of results is done here. This is mainly just a summary of your results. The sub-sections will be the same as the sections in your methods section.
 - Your final model and final results summary will go in the last paragraph.
 
-### ... RESULTS FROM METHODS ...
 **** Rita Start
 ### 1. Data Exploration
 Our unfiltered dataset had a shape of 29193782 rows and 120 columns. In the initial data exploration, we chose to remove the columns that more than 10% of null values, leaving us with 62 columns out of the original 120 columns to work with. After removing these columns, we decided to explore the top 20 most skewed columns as seen below. Most of which are skewed right, aside from WheelsOn, ArrTime, and CRSArrTime, which are skewed left. 
+
 ![hist_plots](./images/histogram_plots.png)
 
 ### 2. Preprocessing 
@@ -238,6 +239,7 @@ For feature expansion, Route was created by combining the Origin and Dest column
 
 ### 3. Model 1: Random Forest Classifier
 Our first model yielded an accuracy score of ~42% for both the training and test data. Overfitting was not strongly observed, as both training and test accuracies were similar. The most influential features were TaxiOut and ArrTime, both of which are likely indicators of delay and are available before the flight departs. The model's accuracy was below our expectations, and further optimizations and alternative models such as XGBoost were planned to improve performance.
+
 ![alt text](../../../Desktop/Picture1.jpg)
 
 **** Rita End

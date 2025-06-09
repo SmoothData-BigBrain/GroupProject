@@ -3,6 +3,9 @@
 ### Authors: 
 #### Ahyo Falick, Hailey Garma, Mihir Patel, Nam Pham, Rita Zaarour
 
+### Jupyter Notebook
+The full preprocessing pipeline can be found in [GroupProject.ipynb](./notebooks/GroupProject.ipynb).
+
 ## Abstract 
 
 We aim to analyze a dataset of approximately 30 million U.S. domestic flights from 2018 to 2022 - around 11GB in size - to understand the key factors contributing to flight delays. The dataset includes features such as scheduled and actual departure/arrival times, delay durations, and reasons for delays or cancellations. Our approach will involve comparing two methods - feature selection using random forest and feature distribution through unsupervised clustering - to identify the most significant factors influencing flight delays. Due to the limitation of the SDSC resources, we weren't able to get to the latter but we hope as a group to continue researching this if possible post class. The ultimate goal is to extract insights that can be used to predict flight delay statuses. Given the dataset’s large size (29 million rows and 120 columns), we will leverage PySpark for efficient data processing.

@@ -1,6 +1,6 @@
 # Model Optimization and Final Submission - Milestone 4
 
-### Authors: Ahyo Falick, Hailey Garma, Mihir Patel, Nam Pham
+### Authors: Ahyo Falick, Hailey Garma, Mihir Patel, Nam Pham, Rita Zaarour
 
 ## Abstract 
 
